@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Trabajadores</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-users"></i> Gestión de Trabajadores</h1>
+    </header>
+
+    <section class="upload-section">
+      <div class="upload-area">
+        <label for="inputExcel" class="upload-label">
+          <i class="fas fa-file-excel"></i>
+          Cargar archivo Excel
+        </label>
+        <input type="file" id="inputExcel" accept=".xlsx,.xls" class="file-input">
+      </div>
+      
+      <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" id="buscador" placeholder="Buscar trabajadores..." class="search-input">
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2><i class="fas fa-user-plus"></i> Agregar Trabajador</h2>
+      <form id="formTrabajador" class="worker-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nombres</label>
+            <input type="text" name="Nombres" required>
+          </div>
+          <div class="form-group">
+            <label>Apellido Paterno</label>
+            <input type="text" name="Paterno" required>
+          </div>
+          <div class="form-group">
+            <label>Apellido Materno</label>
+            <input type="text" name="Materno">
+          </div>
+          <div class="form-group">
+            <label>Tipo Trabajador</label>
+            <select name="TipoTrab">
+              <option value="">Seleccionar</option>
+              <option value="Empleado">Empleado</option>
+              <option value="Obrero">Obrero</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tipo Documento</label>
+            <select name="TipoDoc">
+              <option value="">Seleccionar</option>
+              <option value="DNI">DNI</option>
+              <option value="CE">CE</option>
+              <option value="Pasaporte">Pasaporte</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Número Documento</label>
+            <input type="text" name="NroDoc" required>
+          </div>
+          <div class="form-group">
+            <label>Sexo</label>
+            <select name="Sexo">
+              <option value="">Seleccionar</option>
+              <option value="M">Masculino</option>
+              <option value="F">Femenino</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Estado Civil</label>
+            <select name="EstadoCivil">
+              <option value="">Seleccionar</option>
+              <option value="Soltero">Soltero</option>
+              <option value="Casado">Casado</option>
+              <option value="Divorciado">Divorciado</option>
+              <option value="Viudo">Viudo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Dirección</label>
+            <input type="text" name="Direccion">
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" name="Telefono">
+          </div>
+          <div class="form-group">
+            <label>Fecha Nacimiento</label>
+            <input type="date" name="FechaNac">
+          </div>
+          <div class="form-group">
+            <label>Correo</label>
+            <input type="email" name="Correo">
+          </div>
+          <div class="form-group">
+            <label>Moneda</label>
+            <select name="Moneda">
+              <option value="">Seleccionar</option>
+              <option value="PEN">PEN</option>
+              <option value="USD">USD</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Remuneración</label>
+            <input type="number" name="Remuneracion" step="0.01">
+          </div>
+          <div class="form-group">
+            <label>Sede</label>
+            <input type="text" name="Sede">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-plus"></i> Agregar Trabajador
+        </button>
+      </form>
+    </section>
+
+    <section class="export-section">
+      <h3><i class="fas fa-download"></i> Exportar Datos</h3>
+      <div class="export-buttons">
+        <button onclick="exportarPositiva()" class="btn btn-export">
+          <i class="fas fa-file-excel"></i> Exportar Positiva
+        </button>
+        <button onclick="exportarRimac()" class="btn btn-export">
+          <i class="fas fa-file-excel"></i> Exportar Rimac Formato 2
+        </button>
+        <button onclick="exportarRimacFormato3()" class="btn btn-export">
+          <i class="fas fa-file-excel"></i> Exportar Rimac Formato 3
+        </button>
+      </div>
+    </section>
+
+    <section class="table-section">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="mostrarPestaña('total')">
+          <i class="fas fa-list"></i> Lista Total
+        </button>
+        <button class="tab-btn" onclick="mostrarPestaña('incluidos')">
+          <i class="fas fa-check-circle"></i> Incluidos
+        </button>
+        <button class="tab-btn" onclick="mostrarPestaña('excluidos')">
+          <i class="fas fa-times-circle"></i> Excluidos
+        </button>
+      </div>
+
+      <div class="tab-content active" id="total">
+        <h3>Lista Total de Trabajadores</h3>
+        <div class="table-container">
+          <!-- Tabla generada dinámicamente -->
+        </div>
+      </div>
+
+      <div class="tab-content" id="incluidos">
+        <h3>Trabajadores Incluidos</h3>
+        <div class="table-container">
+          <!-- Tabla generada dinámicamente -->
+        </div>
+      </div>
+
+      <div class="tab-content" id="excluidos">
+        <h3>Trabajadores Excluidos</h3>
+        <div class="table-container">
+          <!-- Tabla generada dinámicamente -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
