@@ -3,137 +3,172 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestión de Trabajadores</title>
+  <title>Gestión de Trabajadores - Formatos SCTR</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
   <div class="container">
     <header>
-      <h1><i class="fas fa-users"></i> Gestión de Trabajadores</h1>
+      <h1><i class="fas fa-shield-alt"></i> Sistema de Gestión SCTR</h1>
     </header>
 
-    <section class="form-section">
-      <h2><i class="fas fa-user-plus"></i> Agregar Trabajador</h2>
-      <form id="formTrabajador" class="worker-form">
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Nombres</label>
-            <input type="text" name="Nombres" required>
-          </div>
-          <div class="form-group">
-            <label>Apellido Paterno</label>
-            <input type="text" name="Paterno" required>
-          </div>
-          <div class="form-group">
-            <label>Apellido Materno</label>
-            <input type="text" name="Materno">
-          </div>
-          <div class="form-group">
-            <label>Tipo Trabajador</label>
-            <select name="TipoTrab">
-              <option value="">Seleccionar</option>
-              <option value="Empleado">Empleado</option>
-              <option value="Obrero">Obrero</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Tipo Documento</label>
-            <select name="TipoDoc">
-              <option value="">Seleccionar</option>
-              <option value="DNI">DNI</option>
-              <option value="CE">CE</option>
-              <option value="Pasaporte">Pasaporte</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Número Documento</label>
-            <input type="text" name="NroDoc" required>
-          </div>
-          <div class="form-group">
-            <label>Sexo</label>
-            <select name="Sexo">
-              <option value="">Seleccionar</option>
-              <option value="M">Masculino</option>
-              <option value="F">Femenino</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Estado Civil</label>
-            <select name="EstadoCivil">
-              <option value="">Seleccionar</option>
-              <option value="Soltero">Soltero</option>
-              <option value="Casado">Casado</option>
-              <option value="Divorciado">Divorciado</option>
-              <option value="Viudo">Viudo</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Dirección</label>
-            <input type="text" name="Direccion">
-          </div>
-          <div class="form-group">
-            <label>Teléfono</label>
-            <input type="tel" name="Telefono">
-          </div>
-          <div class="form-group">
-            <label>Fecha Nacimiento</label>
-            <input type="date" name="FechaNac">
-          </div>
-          <div class="form-group">
-            <label>Correo</label>
-            <input type="email" name="Correo">
-          </div>
-          <div class="form-group">
-            <label>Moneda</label>
-            <select name="Moneda">
-              <option value="">Seleccionar</option>
-              <option value="PEN">PEN</option>
-              <option value="USD">USD</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Remuneración</label>
-            <input type="number" name="Remuneracion" step="0.01">
-          </div>
-          <div class="form-group">
-            <label>Sede</label>
-            <input type="text" name="Sede">
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">
-          <i class="fas fa-plus"></i> Agregar Trabajador
-        </button>
-      </form>
-    </section>
-
-     <section class="upload-section">
+    <section class="upload-section">
       <div class="upload-area">
         <label for="inputExcel" class="upload-label">
           <i class="fas fa-file-excel"></i>
-          Cargar archivo Excel
+          Cargar archivo Excel SCTR
         </label>
         <input type="file" id="inputExcel" accept=".xlsx,.xls" class="file-input">
+        <p class="file-info">Formato esperado: Trama SED [EMPRESA] [MES YEAR]...</p>
       </div>
       
       <div class="search-container">
         <i class="fas fa-search"></i>
         <input type="text" id="buscador" placeholder="Buscar trabajadores..." class="search-input">
       </div>
+
+      <div class="add-worker-container">
+        <button id="btnAbrirModal" class="btn btn-primary">
+          <i class="fas fa-user-plus"></i> Agregar Trabajador
+        </button>
+      </div>
     </section>
-    
+
+    <!-- Modal para agregar trabajador -->
+    <div id="modalAgregarTrabajador" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2><i class="fas fa-user-plus"></i> Agregar Trabajador</h2>
+          <span class="close" id="cerrarModal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form id="formTrabajador" class="worker-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Nombres</label>
+                <input type="text" name="Nombres" required>
+              </div>
+              <div class="form-group">
+                <label>Apellido Paterno</label>
+                <input type="text" name="Paterno" required>
+              </div>
+              <div class="form-group">
+                <label>Apellido Materno</label>
+                <input type="text" name="Materno">
+              </div>
+              <div class="form-group">
+                <label>Tipo Trabajador</label>
+                <select name="TipoTrab">
+                  <option value="">Seleccionar</option>
+                  <option value="Empleado">Empleado</option>
+                  <option value="Obrero">Obrero</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Tipo Documento</label>
+                <select name="TipoDoc">
+                  <option value="">Seleccionar</option>
+                  <option value="DNI">DNI</option>
+                  <option value="CEX">CEX</option>
+                  <option value="PAS">PAS</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Número Documento</label>
+                <input type="text" name="NroDoc" required>
+              </div>
+              <div class="form-group">
+                <label>Sexo</label>
+                <select name="Sexo">
+                  <option value="">Seleccionar</option>
+                  <option value="M">M</option>
+                  <option value="F">F</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Estado Civil</label>
+                <select name="EstadoCivil">
+                  <option value="">Seleccionar</option>
+                  <option value="Soltero">Soltero</option>
+                  <option value="Casado">Casado</option>
+                  <option value="Divorciado">Divorciado</option>
+                  <option value="Viudo">Viudo</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Dirección</label>
+                <input type="text" name="Direccion">
+              </div>
+              <div class="form-group">
+                <label>Teléfono</label>
+                <input type="tel" name="Telefono">
+              </div>
+              <div class="form-group">
+                <label>Fecha Nacimiento</label>
+                <input type="date" name="FechaNac">
+              </div>
+              <div class="form-group">
+                <label>Correo</label>
+                <input type="email" name="Correo">
+              </div>
+              <div class="form-group">
+                <label>Moneda</label>
+                <select name="Moneda">
+                  <option value="">Seleccionar</option>
+                  <option value="D">D (Dólares)</option>
+                  <option value="S">S (Soles)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Remuneración</label>
+                <input type="number" name="Remuneracion" step="0.01">
+              </div>
+              <div class="form-group">
+                <label>Sede</label>
+                <input type="text" name="Sede">
+              </div>
+            </div>
+            <div class="modal-buttons">
+              <button type="button" id="btnCancelar" class="btn btn-secondary">
+                <i class="fas fa-times"></i> Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Agregar Trabajador
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <section class="export-section">
-      <h3><i class="fas fa-download"></i> Exportar Datos</h3>
-      <div class="export-buttons">
-        <button onclick="exportarPositiva()" class="btn btn-export">
-          <i class="fas fa-file-excel"></i> Exportar Positiva
-        </button>
-        <button onclick="exportarRimac()" class="btn btn-export">
-          <i class="fas fa-file-excel"></i> Exportar Rimac Formato 2
-        </button>
-        <button onclick="exportarRimacFormato3()" class="btn btn-export">
-          <i class="fas fa-file-excel"></i> Exportar Rimac Formato 3
-        </button>
+      <h3><i class="fas fa-download"></i> Exportar Todos los Formatos</h3>
+      <div class="export-main">
+        <div class="export-info">
+          <p class="export-description">
+            <i class="fas fa-info-circle"></i>
+            Se generarán todos los formatos SCTR en un archivo ZIP
+          </p>
+          <ul class="format-list">
+            <li><i class="fas fa-file-excel"></i> POSITIVA SCTR (General + Inclusión + Exclusión)</li>
+            <li><i class="fas fa-file-excel"></i> POSITIVA VL (Inclusión/Exclusión separados)</li>
+            <li><i class="fas fa-file-excel"></i> MAPFRE ACC PERSON</li>
+            <li><i class="fas fa-file-excel"></i> MAPFRE Planilla Asegurados</li>
+          </ul>
+        </div>
+        <div class="export-action">
+          <button onclick="exportarTodosLosFormatos()" class="btn btn-export-all" id="btnExportarTodo">
+            <i class="fas fa-file-archive"></i> 
+            <span>Descargar Todos los Formatos (ZIP)</span>
+            <div class="loading-spinner" style="display: none;">
+              <i class="fas fa-spinner fa-spin"></i>
+            </div>
+          </button>
+          <p class="file-name-info" id="nombreArchivoZip">
+            Archivo ZIP: <span>Sin archivo cargado</span>
+          </p>
+        </div>
       </div>
     </section>
 
@@ -174,6 +209,8 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
   <script src="index.js"></script>
 </body>
 </html>
